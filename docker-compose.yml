@@ -1,0 +1,13 @@
+services:
+
+  iam:
+    restart: always
+    networks:
+      - backend
+    env_file:
+      - .env
+
+networks:
+  backend:
+    driver: bridge
+  

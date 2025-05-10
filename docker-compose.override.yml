@@ -1,0 +1,22 @@
+services:
+  
+  iam:
+    build:
+      context: ./iam
+    ports:
+      - "8000:8000"
+    command:
+      - fastapi
+      - run
+      - --reload
+      - "app/main.py"
+    develop:
+      watch:
+        - path: ./iam
+          action: sync
+          target: /app
+          ignore:
+            - ./iam/.venv
+            - .venv
+        - path: ./iam/pyproject.toml
+          action: rebuild
