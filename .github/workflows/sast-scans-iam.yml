@@ -1,0 +1,33 @@
+name: SAST Scans for the IAM module
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+
+  sast_scan_with_bandit:
+    name: Scan Python Code with Bandit
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit
+
+      - name: Run SAST Scan Using Bandit
+        run: bandit -r -ll --i ./iam 
