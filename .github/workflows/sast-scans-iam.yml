@@ -58,4 +58,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker Image
-        run: docker image build -f ./iam/Dockerfile -t iam-image:latest .
+        uses: docker/build-push-action@v6
+        with:
+          context: ./iam
+          file: ./iam/Dockerfile
+          push: false
+          tags: test-image:latest
