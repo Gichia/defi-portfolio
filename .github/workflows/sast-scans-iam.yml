@@ -34,7 +34,7 @@ jobs:
 
       # Always execute this step to upload the report
       - name: Upload Bandit Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: bandit-report
