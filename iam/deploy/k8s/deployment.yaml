@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: defi-portfolio-iam-ns
+  name: defi-portfolio-iam-deployment
+spec:
+  selector:
+    matchLabels:
+      app: defi-portfolio-iam
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: defi-portfolio-iam
+    spec:
+      containers:
+        - name: defi-portfolio-iam
+          image: petergich/defi-portfolio-iam:latest
+          ports:
+            - containerPort: 8000
