@@ -30,7 +30,7 @@ jobs:
           pip install bandit
 
       - name: Run SAST Scan Using Bandit
-        run: bandit -r -ll --i ./iam -f json -o bandit_report.json
+        run: bandit -r -lll -i ./iam -f json -o bandit_report.json
 
       # Always execute this step to upload the report
       - name: Upload Bandit Report
