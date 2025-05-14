@@ -68,6 +68,6 @@ jobs:
       - name: Docker Scout
         uses: docker/scout-action@v1
         with:
-          command: cves,recommendations,compare
+          command: cves,recommendations
           ignore-unchanged: true
           only-severities: critical,high
