@@ -64,3 +64,11 @@ jobs:
           file: ./iam/Dockerfile
           push: false
           tags: test-image:latest
+
+      - name: Docker Scout
+        uses: docker/scout-action@v1
+        with:
+          command: cves,recommendations,compare
+          image: test-image:latest
+          ignore-unchanged: true
+          only-severities: critical,high
