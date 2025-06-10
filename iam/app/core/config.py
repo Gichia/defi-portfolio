@@ -1,5 +1,6 @@
 import secrets
 
+from typing import Annotated, Any, Literal
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -11,7 +12,9 @@ class Settings(BaseSettings):
         extra='ignore',
     )
 
+    PROJECT_NAME: str = 'DeFi Dashboard IAM'
     API_VERSION_STR: str = '/api/v1'
     SECRET_KEY: str = secrets.token_urlsafe(32)
+    ENVIRONMENT: Literal['local', 'staging', 'production'] = 'local'
 
-settings = Settings() 
+settings = Settings()
