@@ -1,13 +1,41 @@
 services:
 
+  db:
+    image: postgres:17
+    restart: always
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    volumes:
+      - defi-iam-db-data:/var/lib/postgresql/data/pgdata
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+
   iam:
     restart: always
     networks:
       - backend
     env_file:
       - .env
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+
+
+volumes:
+  defi-iam-db-data:
 
 networks:
   backend:
     driver: bridge
-  

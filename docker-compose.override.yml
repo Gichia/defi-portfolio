@@ -1,5 +1,10 @@
 services:
-  
+
+  db:
+    restart: "no"
+    # ports:
+    #   - "5432:5432"
+
   iam:
     build:
       context: ./iam
@@ -7,9 +12,11 @@ services:
       - "8000:8000"
     command:
       - fastapi
-      - run
+      - dev
+      - --host=0.0.0.0
+      - --port=8000
       - --reload
-      - "app/main.py"
+      - app/main.py
     develop:
       watch:
         - path: ./iam
