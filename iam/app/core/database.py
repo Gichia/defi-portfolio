@@ -1,7 +1,6 @@
-import os
-
 from sqlmodel import create_engine
 
-SQLALCHEMY_DATABASE_URI = os.environ('SQLALCHEMY_DATABASE_URI')
+from app.core.config import settings
 
-engine = create_engine(str(SQLALCHEMY_DATABASE_URI))
+
+engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
