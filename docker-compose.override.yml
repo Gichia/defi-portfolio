@@ -2,14 +2,14 @@ services:
 
   db:
     restart: "no"
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - 5435:5432
 
   iam:
     build:
       context: ./iam
     ports:
-      - "8000:8000"
+      - 8000:8000
     command:
       - fastapi
       - dev
@@ -17,13 +17,9 @@ services:
       - --port=8000
       - --reload
       - app/main.py
+    volumes:
+      - ./iam/app:/app/app
     develop:
       watch:
-        - path: ./iam
-          action: sync
-          target: /app
-          ignore:
-            - ./iam/.venv
-            - .venv
         - path: ./iam/pyproject.toml
           action: rebuild
