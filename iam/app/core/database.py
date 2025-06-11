@@ -1,4 +1,4 @@
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 
 from app.core.config import settings
 
