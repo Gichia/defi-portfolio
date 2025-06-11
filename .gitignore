@@ -1,2 +1,10 @@
 *.env
 .vscode
+*__pycache__
+/.pytest_cache
+
+# Log files
+/logs
+/log
+*.log
+*.DS_Store
