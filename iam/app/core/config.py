@@ -28,9 +28,15 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_PORT: int = 5432
 
+    TESTING: bool = False
+
     @computed_field  # type: ignore[prop-decorator]
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
+        if self.TESTING:
+            self.POSTGRES_DB = f'{self.POSTGRES_DB}-test'
+            self.POSTGRES_SERVER = f'{self.POSTGRES_SERVER}-test'
+
         return MultiHostUrl.build(
             scheme='postgresql+psycopg',
             username=self.POSTGRES_USER,
