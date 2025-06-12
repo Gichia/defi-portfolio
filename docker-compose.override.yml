@@ -1,6 +1,6 @@
 services:
 
-  db:
+  iam-db:
     restart: "no"
     ports:
       - 5435:5432

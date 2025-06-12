@@ -1,6 +1,6 @@
 services:
 
-  db:
+  iam-db:
     image: postgres:17
     restart: always
     networks:
@@ -21,14 +21,36 @@ services:
       - POSTGRES_USER=${POSTGRES_USER?Variable not set}
       - POSTGRES_DB=${POSTGRES_DB?Variable not set}
 
+  iam-db-test:
+    image: postgres:17
+    restart: always
+    networks:
+      - test-backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}-test
+
   iam:
     restart: always
     networks:
       - backend
+      - test-backend
     env_file:
       - .env
     depends_on:
-      db:
+      iam-db:
+        condition: service_healthy
+        restart: true
+      iam-db-test:
         condition: service_healthy
         restart: true
 
@@ -38,4 +60,6 @@ volumes:
 
 networks:
   backend:
+    driver: bridge
+  test-backend:
     driver: bridge
