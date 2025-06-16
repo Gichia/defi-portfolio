@@ -3,7 +3,7 @@ import secrets
 from typing import Literal
 
 from pydantic_core import MultiHostUrl
-from pydantic import PostgresDsn, computed_field
+from pydantic import PostgresDsn, EmailStr, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -46,5 +46,7 @@ class Settings(BaseSettings):
             path=self.POSTGRES_DB,
         )
 
+    FIRST_SUPERUSER_EMAIL: EmailStr
+    FIRST_SUPERUSER_PASSWORD: str
 
 settings = Settings()
