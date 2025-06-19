@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: defi-portfolio-iam-ns
+  #namespace: defi-portfolio-iam-ns
   name: defi-portfolio-iam-deployment
 spec:
   selector:
@@ -16,5 +16,16 @@ spec:
       containers:
         - name: defi-portfolio-iam
           image: petergich/defi-portfolio-iam:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
+          resources:
+            requests:
+              cpu: 500m # Desired CPU usage set to 0.5 CPU core
+              memory: 256Mi
+            limits:
+              cpu: 1000m # Maximum CPU usage set to 1 CPU core
+              memory: 512Mi # Maximum memory usage set to 512 MiB
+          envFrom:
+          - secretRef:
+              name: defi-portfolio-iam-secrets
