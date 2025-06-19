@@ -11,7 +11,7 @@ spec:
     path: iam/deploy/k8s/
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: defi-portfolio-iam-ns
   syncPolicy:
     automated:
       prune: true

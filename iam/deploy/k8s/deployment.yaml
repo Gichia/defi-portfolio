@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  #namespace: defi-portfolio-iam-ns
+  namespace: defi-portfolio-iam-ns
   name: defi-portfolio-iam-deployment
 spec:
   selector:
